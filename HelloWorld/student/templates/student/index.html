@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学员管理系统-by the5fire</title>
+</head>
+<body>
+    <h3><a href="/admin/">Admin</a></h3>
+    <ul>
+        {% for student in students %}
+<!--  写方法事不需要带括号，因为在模板中不支持函数/方法调用，Django会帮我们自动调用这个函数-->
+        <li>{{ student.name }} - {{ student.get_status_display }}</li>
+        {% endfor %}
+    </ul>
+<!--    分割-->
+    <hr/>
+        <form action="/" method="post">
+<!-- Django对提交数据安全性做的校验，
+如果没有这个token，提交过去的数据是无效的。
+这是用来防止跨站伪造请求攻击的一个手段。-->
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" />
+        </form>
+</body>
+</html>
